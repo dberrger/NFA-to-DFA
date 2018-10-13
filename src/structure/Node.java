@@ -5,6 +5,15 @@ import java.util.ArrayList;
 public class Node {
     private Integer name;
     private ArrayList<Edge> edges;
+    private boolean done = false;
+
+    public boolean isDone() {
+        return done;
+    }
+
+    public void setDone(boolean done) {
+        this.done = done;
+    }
 
     public int getName() {
         return name;

@@ -1,14 +1,16 @@
 package structure;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
-public class Set {
+public class SetStates {
     private String name;
     private boolean done;
+    private Set<Node> states = new HashSet<>();
 
-
-
-    private ArrayList<Node> set = new ArrayList<>();
+    public Set getStates() {
+        return states;
+    }
 
     public String getName() {
         return name;
@@ -18,24 +20,12 @@ public class Set {
         this.name = name;
     }
 
-    public ArrayList<Node> getSet() {
-        return set;
-    }
-
-    public void clear() {
-        this.set.clear();
-    }
-
     public boolean isDone() {
         return done;
     }
 
     public void setDone(boolean done) {
         this.done = done;
-    }
-
-    public void setSet(ArrayList<Node> set) {
-        this.set = set;
     }
 
 }
