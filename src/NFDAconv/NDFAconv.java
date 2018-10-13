@@ -11,6 +11,7 @@ import java.util.*;
 public class NDFAconv {
     private Graph graph;
     private ArrayList<SetStates> finalSetOfSets = new ArrayList<>();
+    private String prevLetter;
     private SetStates currentSet = new SetStates();
     private ArrayList<String> alphabet = new ArrayList<String>() {{
         add("a");
@@ -64,9 +65,10 @@ public class NDFAconv {
 
     public void epsClosureWithLetter(SetStates currentSetWithLetter, Node incomeNode, String currentLetter) {
         for (Edge e : incomeNode.getEdges()) {
-            if (!e.getTo().isDone() && (e.getTransitionCharacter().equals("eps") || e.getTransitionCharacter().equals(currentLetter))) {
+            if (!e.getTo().isDone() && (e.getTransitionCharacter().equals("eps") || (e.getTransitionCharacter().equals(currentLetter) && !prevLetter.equals(e.getTransitionCharacter())))) {
                 currentSetWithLetter.getStates().add(e.getTo());
                 incomeNode.setDone(true);
+                prevLetter = e.getTransitionCharacter();
                 epsClosureWithLetter(currentSetWithLetter, e.getTo(), currentLetter);
             }
         }
@@ -82,6 +84,7 @@ public class NDFAconv {
                 if (e.getTransitionCharacter().equals(letter)) {
                     currentSetWithLetter.getStates().add(e.getTo());
                     // TODO: ?TEST?
+                    prevLetter = e.getTransitionCharacter();
                     epsClosureWithLetter(currentSetWithLetter ,e.getTo(), letter);
                     clearDones(currentSetWithLetter);
                 }
